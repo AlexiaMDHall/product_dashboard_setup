@@ -5,36 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Dashboard</title>
     <link rel="stylesheet" href="style.css">
-    <script src="cp_2.js"></script>
 </head>
 <body>
-    <header>
-       
+       <main>
         <h1>Store Products</h1>
         <div id="dashboard"></div>
         <h3>All products</h3>
         <div id="All-products"></div>
 
         <button onclick = "fetchProductsAsync()">Load All Products</button>
-    </header>
-    <div id="product-container">
-        <div class="Product">
-            <h2>Product 1</h2>
-            <p>Description of Product 1</p>
-            <p>Price: $10.00</p>
-        </div>
-        <div class="Product">
-            <h2>Product 2</h2>
-            <p>Description of Product 2</p>
-            <p>Price: $20.00</p>
-        </div>
-        <div class="Product">
-            <h2>Product 3</h2>
-            <p>Description of Product 3</p>
-            <p>Price: $30.00</p>
-        </div>
-     <button>Add to cart</button>
-
-    </div>
+    <div id="product-container"></div>
+    <div class="btn-container"></div>
+     <button id="load-more-btn">Load More</button>
+     <button id="reset-btn">Reset</button>
+  </div>
+    </main>
+   <script src="cp_2.js"></script>
 </body>
 </html>

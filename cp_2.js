@@ -1,3 +1,7 @@
+let allProducts = [];
+let currentIndex = 0;
+const pageSize = 5;    
+
 let getProducts = async () => {
     try {
         const response = await fetch('https://www.course-api.com/images/store/product-1.jpeg');
@@ -43,37 +47,68 @@ async function fetchProductsAsync() {
 }
 
 function displayProducts(products) {
-    const container = document.querySelector('#product-container');
-    if (!container) {
-        console.error('displayProducts: #product-container not found');
-        return;
-    }
+    // Save all products and reset state
+    allProducts = products;
+    currentIndex = 0;
 
-    container.innerHTML = ''; // clear existing content
+    // Clear the container and show first batch
+    document.getElementById('product-container').innerHTML = '';
+    loadMoreProducts();
 
-    const firstFive = products.slice(0, 5);
-    firstFive.forEach(product => {
-        const card = document.createElement('div');
-        card.className = 'Product';
+    // Wire up the Load More button
+    const btn = document.getElementById('load-more-btn');
+    btn.addEventListener('click', loadMoreProducts);
 
-        const title = document.createElement('h2');
-        title.textContent = product.name || 'Product';
+    // Wire up the Reset button
+    const resetBtn = document.getElementById('reset-btn');
+    resetBtn.addEventListener('click', resetProducts);
+}
+function resetProducts() {
+    // Reset index and clear container
+    currentIndex = 0;
+    document.getElementById('product-container').innerHTML = '';
 
-        const img = document.createElement('img');
-        img.src = product.image || product.images?.[0] || '';
-        img.alt = product.name || 'Product image';
-        img.loading = 'lazy';
+    // Show Load More button again
+    const btn = document.getElementById('load-more-btn');
+    btn.style.display = 'block';
 
-        const price = document.createElement('p');
-        const displayPrice = product.price ? `$${(product.price / 100).toFixed(2)}` : 'Price unavailable';
-        price.textContent = `Price: ${displayPrice}`;
+    // Load the first batch
+    loadMoreProducts();
 
-        card.appendChild(title);
-        card.appendChild(img);
-        card.appendChild(price);
+    // Scroll back to top
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
 
-        container.appendChild(card);
+function loadMoreProducts() {
+const container = document.getElementById('product-container');
+const btn = document.getElementById('load-more-btn');
+// Slice the next 5 products
+    const nextBatch = allProducts.slice(currentIndex, currentIndex + PAGE_SIZE);
+
+    nextBatch.forEach(product => {
+        const { name, price, image } = product.fields;
+
+        const productCard = document.createElement('div');
+        productCard.className = 'product-card';
+        productCard.innerHTML = `
+            <img src="${image[0].url}" alt="${name}">
+            <div class="card-body">
+                <h3>${name}</h3>
+                <p class="price">$${(price / 100).toFixed(2)}</p>
+            </div>
+        `;
+        container.appendChild(productCard);
     });
+
+    currentIndex += pageSize;
+
+    // Hide button when all products are loaded
+    if (currentIndex >= allProducts.length) {
+        btn.style.display = 'none';
+    }
+}
+function handleError(error) {
+    console.log(`An error occurred: ${error.message}`);
 }
 fetchProductsThen();
 fetchProductsAsync();

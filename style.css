@@ -10,23 +10,26 @@ body {
     display: flex;
     flex-wrap: wrap;
     gap: 30px;
-    color:#0e0963
+    color: #0e0963;
 }
 
 .product-card {
     border-style: solid;
     border-width: 1px;
     border-color: #373a38;
-    border-radius: 5px;
+    border-radius: 8px;
     box-shadow: #0e0963 0px 4px 8px 0px;
-    transition: transform 0.5s;
-    :hover {
-        transform: scale(1.05);
-    }
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
     cursor: pointer;
-    input{
-    caret-color: #2c2857;
 }
+
+.product-card:hover {
+    transform: scale(1.04);
+    box-shadow: rgba(14, 9, 99, 0.2) 0px 8px 16px 0px;
+}
+
+.product-card input {
+    caret-color: #2c2857;
 }
 .product-card img {
     width: 100%;

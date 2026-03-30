@@ -83,7 +83,7 @@ function loadMoreProducts() {
 const container = document.getElementById('product-container');
 const btn = document.getElementById('load-more-btn');
 // Slice the next 5 products
-    const nextBatch = allProducts.slice(currentIndex, currentIndex + PAGE_SIZE);
+    const nextBatch = allProducts.slice(currentIndex, currentIndex + pageSize);
 
     nextBatch.forEach(product => {
         const { name, price, image } = product.fields;

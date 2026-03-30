@@ -26,7 +26,7 @@ function fetchProductsThen() {
         .catch(error => {
             console.error('Error fetching products with fetchProductsThen:', error);
         });
-
+    }
 async function fetchProductsAsync() {
     try {
         const response = await fetch('https://www.course-api.com/javascript-store-products');
